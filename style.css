@@ -1,17 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;0,900;1,500&display=swap');
+
 
 @media (max-width: 400px){
 
+  *{
+    font-family: 'Roboto', sans-serif;
+  }
+
+  body{
+    width: 100%;
+    height: 100%;
+    background-color: #E5E5E5;
+  }
+
   header{
-    width: 100vw;
+    width: 100%;
     height: 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0;   
+  }
+
+  .interna {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
     padding: 0 20px;
   }
 
@@ -27,13 +48,12 @@
 
   .container{
     width: 100vw;
-    height: 800px;
-    margin-top: 100px;
-    background-color: #E5E5E5;
+    height: 100%;
+    margin: 100px 0;
   }
 
   footer{
-    width: 100vw;
+    width: 100%;
     height: 80px;
     background-color: white;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
@@ -43,7 +63,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 0;
   }
 
   footer ion-icon{
@@ -51,9 +71,16 @@
     height: 26px;
   }
 
-  /*.footer input{
+  footer textarea{
+    width: 80%;
+    height: 40%;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    padding-top: 10px;
 
-  }*/
+  }
 
 
 }
