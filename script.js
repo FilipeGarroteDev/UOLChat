@@ -38,6 +38,7 @@ function searchMessages(){
 }
 
   function messagesInDOM(msgs){
+    
     messages = msgs.data;
     container.innerHTML = null
     for(let i = 0; i < messages.length; i++){
@@ -61,6 +62,7 @@ function searchMessages(){
         `
       }
     }
+    document.querySelector(".container > div:last-child").scrollIntoView();
   }
 
 /*function objectCreator(){
