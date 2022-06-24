@@ -164,5 +164,37 @@
     display: none;
   }
 
+  .format{
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .status{
+    background-color: #dcdcdc;
+  }
+
+  .message{
+    background-color: #ffffff;
+  }
+
+  .private_message{
+    background-color: #FFDEDE;
+  }
+
+  strong{
+    font-weight: 700;
+  }
+
+  en{
+    color: #aaaaaa;
+    padding-right: 5px;
+  }
+
 
 }
