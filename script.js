@@ -3,6 +3,7 @@ let background = document.querySelector(".background")
 let sideMenu = document.querySelector(".menu")
 let user = {};
 let messages;
+let objectMessage;
 
 welcome()
 
@@ -18,6 +19,7 @@ function welcome(){
     alert(`Seja bem-vindo, ${user.name}!!`);
     setInterval(connectionStatus, 5000);
     searchMessages();
+    setInterval(searchMessages, 3000);
   }
 
   function welcomeError(){
@@ -37,6 +39,7 @@ function searchMessages(){
 
   function messagesInDOM(msgs){
     messages = msgs.data;
+    container.innerHTML = null
     for(let i = 0; i < messages.length; i++){
       if (messages[i].type === "status"){
         container.innerHTML += `
@@ -59,6 +62,17 @@ function searchMessages(){
       }
     }
   }
+
+/*function objectCreator(){
+  objectMessage = {
+    from: user.name,
+    text: "",
+  }
+}
+
+function sendMessages(){
+  
+}*/
 
 
 
