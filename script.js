@@ -2,6 +2,7 @@ let container = document.querySelector(".container")
 let background = document.querySelector(".background")
 let sideMenu = document.querySelector(".menu")
 let user = {};
+let otherUsers = [];
 let messages;
 let objectMessage;
 
@@ -20,6 +21,8 @@ function welcome(){
     setInterval(connectionStatus, 5000);
     searchMessages();
     setInterval(searchMessages, 3000);
+    searchUsers();
+    setInterval(searchUsers, 10000);
   }
 
   function welcomeError(){
@@ -63,6 +66,29 @@ function searchMessages(){
       }
     }
     document.querySelector(".container > div:last-child").scrollIntoView();
+  }
+
+function searchUsers(){
+  const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants")
+  promise.then(reloadUsers);
+}
+
+  function reloadUsers(activeUsers){
+    let userMenu = document.querySelector(".users")
+    userMenu.innerHTML = `
+    <div>
+      <ion-icon name="people"></ion-icon>
+      <span>Todos</span>
+    </div>
+    <ion-icon name="checkmark" class="check hidden"></ion-icon>`
+    for(let i = 0; i < activeUsers.data.length; i++){
+      userMenu.innerHTML += `
+    <div>
+      <ion-icon name="person-circle"></ion-icon>
+      <span>${activeUsers.data[i].name}</span>
+    </div>
+    <ion-icon name="checkmark" class="check hidden"></ion-icon>`
+    } 
   }
 
 /*function objectCreator(){
