@@ -13,7 +13,7 @@
   <header>
     <div class="interna">
       <img src="./images/logo2.png" alt="">
-      <ion-icon name="people"></ion-icon>
+      <ion-icon name="people" onclick="appearMenu()"></ion-icon>
     </div>
   </header>
   <div class="container">
@@ -25,38 +25,46 @@
       <ion-icon name="paper-plane-outline"></ion-icon>
     </div>
   </footer>
-  <div class="menu hidden">
-    <div class="messageType">
-      <h2>Escolha um contato para enviar mensagem:</h2>
-      <div class="users">
-        <div>
-          <ion-icon name="people"></ion-icon>
-          <span>Todos</span>
+  <div class="welcomeMenu hidden">
+    <img src="./images/logo2.png" alt="">
+    <input type="text" placeholder="Digite seu nome">
+    <button>Entrar</button>
+  </div>
+  <div class="menuBackground">
+    <div class="background" onclick="hiddenMenu()"></div>
+    <div class="menu">
+      <div class="messageType">
+        <h2>Escolha um contato para enviar mensagem:</h2>
+        <div class="users">
+          <div>
+            <ion-icon name="people"></ion-icon>
+            <span>Todos</span>
+          </div>
+          <ion-icon name="checkmark" class="check hidden"></ion-icon>
         </div>
-        <ion-icon name="checkmark" class="check hidden"></ion-icon>
       </div>
-    </div>
-    <div class="visibilityType">
-      <h2>Escolha a visibilidade:</h2>
-      <div class="visibility">
-        <div>
-          <ion-icon name="lock-open"></ion-icon>
-          <span>Público</span>
+      <div class="visibilityType">
+        <h2>Escolha a visibilidade:</h2>
+        <div class="visibility">
+          <div>
+            <ion-icon name="lock-open"></ion-icon>
+            <span>Público</span>
+          </div>
+          <ion-icon name="checkmark" class="check hidden"></ion-icon>
         </div>
-        <ion-icon name="checkmark" class="check hidden"></ion-icon>
-      </div>
-      <div class="visibility">
-        <div>
-          <ion-icon name="lock-open"></ion-icon>
-          <span>Reservadamente</span>
+        <div class="visibility">
+          <div>
+            <ion-icon name="lock-open"></ion-icon>
+            <span>Reservadamente</span>
+          </div>
+          <ion-icon name="checkmark" class="check hidden"></ion-icon>
         </div>
-        <ion-icon name="checkmark" class="check hidden"></ion-icon>
       </div>
     </div>
   </div>
 
 
-
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script src="script.js"></script>
