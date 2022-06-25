@@ -74,22 +74,47 @@ function searchUsers(){
 }
 
   function reloadUsers(activeUsers){
-    let userMenu = document.querySelector(".users")
+    let userMenu = document.querySelector(".messageType")
     userMenu.innerHTML = `
-    <div>
-      <ion-icon name="people"></ion-icon>
-      <span>Todos</span>
-    </div>
-    <ion-icon name="checkmark" class="check hidden"></ion-icon>`
+    <h2>Escolha um contato para enviar mensagem:</h2>
+    <div class="users" onclick="toggleCheck(this)">
+      <div>
+        <ion-icon name="people"></ion-icon>
+        <span>Todos</span>
+      </div>
+      <ion-icon name="checkmark" class="check"></ion-icon>
+    </div>`
     for(let i = 0; i < activeUsers.data.length; i++){
       userMenu.innerHTML += `
-    <div>
-      <ion-icon name="person-circle"></ion-icon>
-      <span>${activeUsers.data[i].name}</span>
-    </div>
-    <ion-icon name="checkmark" class="check hidden"></ion-icon>`
+    <div class="users" onclick="toggleCheck(this)">
+      <div>
+        <ion-icon name="person-circle"></ion-icon>
+        <span>${activeUsers.data[i].name}</span>
+      </div>
+      <ion-icon name="checkmark" class="check hidden"></ion-icon>
+    </div>`
     } 
   }
+
+
+
+function toggleCheck(element){
+  let menuSection = element.parentNode;
+  let checkMark = element.querySelector(".check")
+  let isHidden = menuSection.querySelectorAll(".hidden");
+  let totalCheck = menuSection.querySelectorAll(".check");
+  if (isHidden.length === totalCheck.length){
+    checkMark.classList.remove("hidden")
+  } else {
+    for(let i = 0; i < totalCheck.length; i++){
+      totalCheck[i].classList.add("hidden");
+    }
+    checkMark.classList.remove("hidden")
+  }
+  
+
+}
+
 
 /*function objectCreator(){
   objectMessage = {
@@ -101,9 +126,6 @@ function searchUsers(){
 function sendMessages(){
   
 }*/
-
-
-
 
 
 function appearMenu(){

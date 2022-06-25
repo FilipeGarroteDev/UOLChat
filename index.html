@@ -33,30 +33,25 @@
     <div class="background" onclick="hiddenMenu()"></div>
     <div class="menu">
       <div class="messageType">
-        <h2>Escolha um contato para enviar mensagem:</h2>
-        <div class="users">
-          
-        </div>
+
       </div>
       <div class="visibilityType">
         <h2>Escolha a visibilidade:</h2>
-        <div class="visibility">
-          <div class="visContainer">
-            <div>
-              <ion-icon name="lock-open"></ion-icon>
-              <span>Público</span>
-            </div>
-            <ion-icon name="checkmark-sharp" class="check hidden"></ion-icon>
+        <div class="visibility"onclick="toggleCheck(this)">
+          <div>
+            <ion-icon name="lock-open"></ion-icon>
+            <span>Público</span>
           </div>
+          <ion-icon name="checkmark-sharp" class="check hidden"></ion-icon>
         </div>
-        <div class="visibility">
+        <div class="visibility" onclick="toggleCheck(this)">
           <div>
             <ion-icon name="lock-closed"></ion-icon>
             <span>Reservadamente</span>
           </div>
-          <ion-icon name="checkmark" class="check hidden"></ion-icon>
+          <ion-icon name="checkmark-sharp" class="check hidden"></ion-icon>
         </div>
-      </div>
+        </div>
     </div>
   </div>
 
