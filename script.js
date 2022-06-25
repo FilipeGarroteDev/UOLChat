@@ -8,23 +8,28 @@ let objectMessage;
 let toUserName;
 let visibility;
 
-
-welcome()
-
 function welcome(){
-  user.name = prompt("Bem-vindo. Seu nome.")
+  user.name = document.querySelector(".welcome1 > input").value;
+  setTimeout(appearLoading, 500);
   const promiseWelcome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", user)
   promiseWelcome.then(welcomeSuccess);
   promiseWelcome.catch(welcomeError);
 }
 
   function welcomeSuccess(){
-    alert(`Seja bem-vindo, ${user.name}!!`);
-    setInterval(connectionStatus, 5000);
-    searchMessages();
-    setInterval(searchMessages, 3000);
-    searchUsers();
-    setInterval(searchUsers, 10000);
+    if ((user.name).toUpperCase() === "TODOS"){
+      alert(
+        `Tá de sacanagem, né? Você não pode escolher o nome "TODOS". :(\nPor gentileza, escolha um outro nome de usuário.`)
+        welcome()
+    } else {
+      setTimeout(appearWelcome, 2000);
+      setTimeout(() => document.querySelector(".welcomeMenu").classList.add("hidden"), 3500)
+      setInterval(connectionStatus, 5000);
+      searchMessages();
+      setInterval(searchMessages, 3000);
+      searchUsers();
+      setInterval(searchUsers, 10000);
+    }
   }
 
   function welcomeError(){
@@ -32,6 +37,22 @@ function welcome(){
     `${user.name}, esse nome de usuário já existe. :(\nPor gentileza, escolha um outro nome de usuário.`)
     welcome()
   }
+
+function appearLoading(){
+  let firstWelcome = document.querySelector(".welcome1");
+  firstWelcome.classList.add("hidden");
+  let loadingGIF = document.querySelector(".gif");
+  loadingGIF.classList.remove("hidden");
+}
+
+function appearWelcome(){
+  let hiddenGIF = document.querySelector(".gif");
+  hiddenGIF.classList.add("hidden");
+  let showWelcome = document.querySelector(".welcome2");
+  let textWelcome = showWelcome.querySelector("p");
+  textWelcome.innerHTML = `Seja bem-vindo, ${user.name}!!!`
+  showWelcome.classList.remove("hidden");
+}
 
 function connectionStatus(){
   axios.post("https://mock-api.driven.com.br/api/v6/uol/status", user)
