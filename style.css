@@ -19,23 +19,19 @@
     width: 100%;
     height: 80px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
     position: fixed;
     top: 0;
     left: 0;
+    padding: 0 20px;
   }
 
-  .interna {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 0 20px;
+  header > ion-icon{
+    width: 43px;
+    height: 43px;
   }
 
   img{
@@ -54,6 +50,14 @@
     margin: 100px 0;
   }
 
+  .interna {
+    height: 80px;
+    padding: 15px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   footer{
     width: 100%;
     height: 80px;
@@ -65,17 +69,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0;
+    padding: 0 20px 0 20px;
   }
 
   footer ion-icon{
-    width: 26px;
-    height: 26px;
+    width: 35px;
+    height: 35px;
   }
 
   footer textarea{
-    width: 80%;
-    height: 50%;
+    width: 130%;
+    height: 90%;
     border: none;
     font-size: 18px;
     font-weight: 400;
@@ -83,6 +87,13 @@
     padding-top: 7px;
     outline: none;
     font-family: 'Roboto', sans-serif;
+    overflow-y: auto;
+  }
+
+  footer p{
+    font-size: 14px;
+    font-weight: 300;
+    color: #505050;
   }
 
   .menu {
@@ -154,16 +165,16 @@
     left: 0;
   }
 
+  .hidden{
+    display: none;
+  }
+
   .check{
+    display: initial;
     width: 20px;
     height: 20px;
     color: #28BB25;
     font-weight: 900;
-  }
-
-
-  .hidden {
-    display: none;
   }
 
   .format{

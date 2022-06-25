@@ -10,25 +10,24 @@
   <title>Projeto 5 - Bate-Papo UOL</title>
 </head>
 <body>
+  <div class="welcomeMenu hidden">
+    <img src="./images/logo2.png" alt="">
+    <input type="text" placeholder="Digite seu nome">
+    <button>Entrar</button>
+  </div>
   <header>
-    <div class="interna">
       <img src="./images/logo2.png" alt="">
       <ion-icon name="people" onclick="appearMenu()"></ion-icon>
-    </div>
   </header>
   <div class="container">
   </div>
   <footer>
     <div class="interna">
       <textarea placeholder="Escreva aqui..."></textarea>
-      <ion-icon name="paper-plane-outline" onclick = "sendMessages()"></ion-icon>
+      <p>Enviando para Todos</p>
     </div>
+    <ion-icon name="paper-plane-outline" onclick = "sendMessages()"></ion-icon>
   </footer>
-  <div class="welcomeMenu hidden">
-    <img src="./images/logo2.png" alt="">
-    <input type="text" placeholder="Digite seu nome">
-    <button>Entrar</button>
-  </div>
   <div class="menuOverlay">
     <div class="background" onclick="hiddenMenu()"></div>
     <div class="menu">
@@ -42,14 +41,14 @@
             <ion-icon name="lock-open"></ion-icon>
             <span>Público</span>
           </div>
-          <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+          <ion-icon name="checkmark-sharp" class="hidden check"></ion-icon>
         </div>
         <div class="visibility" onclick="toggleCheck(this)">
           <div>
             <ion-icon name="lock-closed"></ion-icon>
             <span>Reservadamente</span>
           </div>
-          <ion-icon name="checkmark-sharp" class="check hidden"></ion-icon>
+          <ion-icon name="checkmark-sharp" class="hidden"></ion-icon>
         </div>
         </div>
     </div>

@@ -5,12 +5,14 @@ let user = {};
 let otherUsers = [];
 let messages;
 let objectMessage;
+let toUserName;
+let visibility;
+
 
 welcome()
 
 function welcome(){
   user.name = prompt("Bem-vindo. Seu nome.")
-  //user.name = "Jeff"
   const promiseWelcome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", user)
   promiseWelcome.then(welcomeSuccess);
   promiseWelcome.catch(welcomeError);
@@ -82,7 +84,7 @@ function searchUsers(){
         <ion-icon name="people"></ion-icon>
         <span>Todos</span>
       </div>
-      <ion-icon name="checkmark" class="check"></ion-icon>
+      <ion-icon name="checkmark" class="hidden check"></ion-icon>
     </div>`
     for(let i = 0; i < activeUsers.data.length; i++){
       userMenu.innerHTML += `
@@ -91,47 +93,70 @@ function searchUsers(){
         <ion-icon name="person-circle"></ion-icon>
         <span>${activeUsers.data[i].name}</span>
       </div>
-      <ion-icon name="checkmark" class="check hidden"></ion-icon>
+      <ion-icon name="checkmark" class="hidden"></ion-icon>
     </div>`
     } 
   }
 
-
-
 function toggleCheck(element){
   let menuSection = element.parentNode;
-  let checkMark = element.querySelector(".check")
-  let isHidden = menuSection.querySelectorAll(".hidden");
-  let totalCheck = menuSection.querySelectorAll(".check");
-  if (isHidden.length === totalCheck.length){
-    checkMark.classList.remove("hidden")
-  } else {
-    for(let i = 0; i < totalCheck.length; i++){
-      totalCheck[i].classList.add("hidden");
-    }
-    checkMark.classList.remove("hidden")
+  let thisCheck = element.querySelector(".hidden")
+  let isCheck = menuSection.querySelector(".check");
+  if (isCheck !== null){
+    isCheck.classList.remove("check")
+    thisCheck.classList.add("check")
   }
-  
-
+  switchUsers()
 }
 
+function switchUsers(){
+  toUserName = document.querySelector(".messageType").querySelector(".check").parentNode.querySelector("span").innerHTML;
+  visibility = document.querySelector(".visibilityType").querySelector(".check").parentNode.querySelector("span").innerHTML;
+  let footerText = document.querySelector("p");
+  if (visibility === "Reservadamente"){
+    footerText.innerHTML = `Enviando para ${toUserName} (reservadamente)`
+  } else {
+    footerText.innerHTML = `Enviando para ${toUserName}`
+  }
+}
 
 function objectCreator(){
-  objectMessage = {
-    from: user.name,
-    to: "Todos",
-    text: document.querySelector("textarea").value,
-    type: "message"
+  if (visibility === "Reservadamente"){
+    objectMessage = {
+      from: user.name,
+      to: toUserName,
+      text: document.querySelector("textarea").value,
+      type: "private_message"
+    }
+  } else {
+    objectMessage = {
+      from: user.name,
+      to: toUserName,
+      text: document.querySelector("textarea").value,
+      type: "message"
+    }
   }
+  
 }
 
 function sendMessages(){
-  let text = document.querySelector("textarea").value
   objectCreator()
-  text = "";
   const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage)
   promise.then(searchMessages)
-  promise.catch(error => window.location.reload())
+  promise.catch(error => {
+    alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
+    window.location.reload()
+  })
+  document.querySelector("textarea").value = null;
+  patternReturn()
+  switchUsers()
+}
+
+function patternReturn (){
+  let publicVisibility = document.querySelector(".visibility > .hidden")
+  let privateVisibility = document.querySelector(".visibilityType > .visibility:last-child").querySelector(".hidden")
+  publicVisibility.classList.add("check")
+  privateVisibility.classList.remove("check")
 }
 
 
