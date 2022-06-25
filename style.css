@@ -225,15 +225,24 @@
     height: 100vh;
     background-color: black;
     opacity: 0;
-    transition: all 1.5s;
+    transition: opacity 1s;
     position: fixed;
     top: 0;
     right: -500px;
   }
 
+  .transitionOpacityPosition{
+    opacity: 0.6;
+    right: 0;
+    left: 0;
+    transition: opacity 1s;
+  }
+
   .transitionOpacity{
     opacity: 0.6;
-    transition: all 1.5s;
+  }
+
+  .transitionPosition{
     right: 0;
     left: 0;
   }

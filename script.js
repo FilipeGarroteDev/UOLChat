@@ -10,7 +10,6 @@ let visibility;
 
 function welcome(){
   user.name = document.querySelector(".welcome1 > input").value;
-  setTimeout(appearLoading, 500);
   const promiseWelcome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", user)
   promiseWelcome.then(welcomeSuccess);
   promiseWelcome.catch(welcomeError);
@@ -22,6 +21,7 @@ function welcome(){
         `Tá de sacanagem, né? Você não pode escolher o nome "TODOS". :(\nPor gentileza, escolha um outro nome de usuário.`)
         welcome()
     } else {
+      setTimeout(appearLoading, 500);
       setTimeout(appearWelcome, 2000);
       setTimeout(() => document.querySelector(".welcomeMenu").classList.add("hidden"), 3500)
       setInterval(connectionStatus, 5000);
@@ -35,7 +35,7 @@ function welcome(){
   function welcomeError(){
     alert(
     `${user.name}, esse nome de usuário já existe. :(\nPor gentileza, escolha um outro nome de usuário.`)
-    welcome()
+    document.querySelector(".welcome1 > input").value = null;
   }
 
 function appearLoading(){
@@ -183,10 +183,12 @@ function patternReturn (){
 
 function appearMenu(){
   background.classList.add("transitionOpacity")
+  background.classList.add("transitionPosition")
   sideMenu.classList.add("transitionMenu")
 }
 
 function hiddenMenu(){
-  background.classList.remove("transitionOpacity")
-  sideMenu.classList.remove("transitionMenu")
+  setTimeout(() => background.classList.remove("transitionPosition"), 300);
+  background.classList.remove("transitionOpacity");
+  sideMenu.classList.remove("transitionMenu");
 }
