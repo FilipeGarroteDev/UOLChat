@@ -91,7 +91,7 @@
     height: 100vh;
     background-color: white;
     position: fixed;
-    right: -480px;
+    right: -380px;
     top: 0;
     bottom: 0;
     padding: 0 18px;
@@ -144,7 +144,7 @@
     transition: all 1.5s;
     position: fixed;
     top: 0;
-    right: -700px;
+    right: -500px;
   }
 
   .transitionOpacity{
@@ -175,6 +175,8 @@
     padding: 8px;
     font-size: 14px;
     font-weight: 400;
+    word-break: break-all;
+    word-wrap: break-word;
   }
 
   .status{

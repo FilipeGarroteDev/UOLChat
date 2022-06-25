@@ -116,16 +116,23 @@ function toggleCheck(element){
 }
 
 
-/*function objectCreator(){
+function objectCreator(){
   objectMessage = {
     from: user.name,
-    text: "",
+    to: "Todos",
+    text: document.querySelector("textarea").value,
+    type: "message"
   }
 }
 
 function sendMessages(){
-  
-}*/
+  let text = document.querySelector("textarea").value
+  objectCreator()
+  text = "";
+  const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage)
+  promise.then(searchMessages)
+  promise.catch(error => window.location.reload())
+}
 
 
 function appearMenu(){
