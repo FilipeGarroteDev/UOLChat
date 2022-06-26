@@ -5,8 +5,9 @@ let user = {};
 let otherUsers = [];
 let messages;
 let objectMessage;
-let toUserName;
+let toUserName = "Todos"
 let visibility;
+let activeUsers;
 
 function welcome(){
   user.name = document.querySelector(".welcome1 > input").value;
@@ -80,7 +81,7 @@ function searchMessages(){
           <span><en>(${messages[i].time})</en> <strong>${messages[i].from}</strong> para <strong>${messages[i].to}</strong>: ${messages[i].text}</span>
         </div>
         `
-      } else if (messages[i].type === "private_message"){
+      } else if (messages[i].type === "private_message" && (messages[i].to === user.name || messages[i].to === "Todos" || messages[i].from === user.name)){
         container.innerHTML += `
         <div class="private_message format">
           <span><en>(${messages[i].time})</en> <strong>${messages[i].from}</strong> reservadamente para <strong>${messages[i].to}</strong>: ${messages[i].text}</span>
@@ -96,44 +97,73 @@ function searchUsers(){
   promise.then(reloadUsers);
 }
 
-  function reloadUsers(activeUsers){
-    let userMenu = document.querySelector(".messageType")
-    userMenu.innerHTML = `
-    <h2>Escolha um contato para enviar mensagem:</h2>
-    <div class="users" onclick="toggleCheck(this)">
-      <div>
-        <ion-icon name="people"></ion-icon>
-        <span>Todos</span>
-      </div>
-      <ion-icon name="checkmark" class="hidden check"></ion-icon>
-    </div>`
-    for(let i = 0; i < activeUsers.data.length; i++){
-      userMenu.innerHTML += `
-    <div class="users" onclick="toggleCheck(this)">
-      <div>
-        <ion-icon name="person-circle"></ion-icon>
-        <span>${activeUsers.data[i].name}</span>
-      </div>
-      <ion-icon name="checkmark" class="hidden"></ion-icon>
-    </div>`
-    } 
+  function reloadUsers(success){
+    let userContainer = document.querySelector(".usersContainer")
+    let userMenu = document.querySelector(".messageType");
+    let userChecked = userMenu.querySelector(".check").parentNode.querySelector("span").innerHTML;
+    activeUsers = success.data
+    userContainer.innerHTML = null
+    for(let i = 0; i < activeUsers.length; i++){
+      if (userChecked === activeUsers[i].name){
+        userContainer.innerHTML += `
+        <div class="users" onclick="toggleCheck(this)">
+          <div>
+            <ion-icon name="person-circle"></ion-icon>
+            <span>${activeUsers[i].name}</span>
+          </div>
+          <ion-icon name="checkmark" class="hidden check"></ion-icon>
+        </div>`
+
+      } else {
+        userContainer.innerHTML += `
+        <div class="users" onclick="toggleCheck(this)">
+          <div>
+            <ion-icon name="person-circle"></ion-icon>
+            <span>${activeUsers[i].name}</span>
+          </div>
+          <ion-icon name="checkmark" class="hidden"></ion-icon>
+        </div>`
+      }
+    }
+    checkTodos()
+  }
+
+  function checkTodos(){
+    let userMenu = document.querySelector(".messageType");
+    let allUsers = userMenu.querySelectorAll(".check")
+    let todos = document.querySelector(".all").querySelector(".hidden")
+    if(allUsers.length === 0){
+      todos.classList.add("check")
+      switchUsers()
+    }
   }
 
 function toggleCheck(element){
+  let messageType = document.querySelector(".messageType");
+  let isCheckMessage = messageType.querySelector(".check");
   let menuSection = element.parentNode;
-  let thisCheck = element.querySelector(".hidden")
+  let thisCheck = element.querySelector(".hidden");
   let isCheck = menuSection.querySelector(".check");
-  if (isCheck !== null){
-    isCheck.classList.remove("check")
-    thisCheck.classList.add("check")
+  if (menuSection.classList.contains("visibilityType")){
+    if (isCheck !== null){
+      isCheck.classList.remove("check")
+      thisCheck.classList.add("check")
+    }
+    switchUsers()
   }
-  switchUsers()
+  if (menuSection.classList.contains("messageType") || menuSection.classList.contains("usersContainer")){
+    if (isCheckMessage !== null){
+      isCheckMessage.classList.remove("check")
+      thisCheck.classList.add("check")
+    }
+    switchUsers()
+  }
 }
 
 function switchUsers(){
   toUserName = document.querySelector(".messageType").querySelector(".check").parentNode.querySelector("span").innerHTML;
   visibility = document.querySelector(".visibilityType").querySelector(".check").parentNode.querySelector("span").innerHTML;
-  let footerText = document.querySelector("p");
+  let footerText = document.querySelector(".interna > p");
   if (visibility === "Reservadamente"){
     footerText.innerHTML = `Enviando para ${toUserName} (reservadamente)`
   } else {
@@ -157,7 +187,6 @@ function objectCreator(){
       type: "message"
     }
   }
-  
 }
 
 function sendMessages(){
@@ -169,17 +198,18 @@ function sendMessages(){
     window.location.reload()
   })
   document.querySelector("textarea").value = null;
-  patternReturn()
   switchUsers()
 }
 
-function patternReturn (){
-  let publicVisibility = document.querySelector(".visibility > .hidden")
-  let privateVisibility = document.querySelector(".visibilityType > .visibility:last-child").querySelector(".hidden")
-  publicVisibility.classList.add("check")
-  privateVisibility.classList.remove("check")
-}
-
+/*function sendWithEnter(){
+  let input = document.querySelector(".interna > textarea");
+  input.EventListener('keypress', function(e){
+    if (13 === e.keyCode){
+      e.preventDefault();
+      sendMessages();
+    }
+  })
+}*/
 
 function appearMenu(){
   background.classList.add("transitionOpacity")

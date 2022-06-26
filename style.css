@@ -200,7 +200,7 @@
     margin-bottom: 10px;
   }
 
-  .users, .visibility{
+  .users, .visibility, .all{
     width: 100%;
     display: flex;
     align-items: center;
@@ -208,7 +208,7 @@
     margin-bottom: 15px;
   }
 
-  .visibility > div, .users > div{
+  .visibility > div, .users > div, .all > div{
     display: flex;
     align-items: center;
   }

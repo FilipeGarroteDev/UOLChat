@@ -39,7 +39,15 @@
     <div class="background" onclick="hiddenMenu()"></div>
     <div class="menu">
       <div class="messageType">
-
+        <h2>Escolha um contato para enviar mensagem:</h2>
+        <div class="all" onclick="toggleCheck(this)">
+          <div>
+            <ion-icon name="people"></ion-icon>
+            <span>Todos</span>
+          </div>
+          <ion-icon name="checkmark" class="hidden check"></ion-icon>
+        </div>
+        <div class="usersContainer"></div>
       </div>
       <div class="visibilityType">
         <h2>Escolha a visibilidade:</h2>
@@ -57,7 +65,7 @@
           </div>
           <ion-icon name="checkmark-sharp" class="hidden"></ion-icon>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 
