@@ -2,36 +2,37 @@ let container = document.querySelector(".container")
 let background = document.querySelector(".background")
 let sideMenu = document.querySelector(".menu")
 let user = {};
-let otherUsers = [];
 let messages;
 let objectMessage;
-let toUserName = "Todos"
+let toUserName = "Todos";
 let visibility;
 let activeUsers;
 
 function welcome(){
   user.name = document.querySelector(".welcome1 > input").value;
-  const promiseWelcome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", user)
-  promiseWelcome.then(welcomeSuccess);
-  promiseWelcome.catch(welcomeError);
+  if ((user.name).toUpperCase() === "TODOS"){
+    alert(
+      `Tá de sacanagem, né? Você não pode escolher o nome "TODOS". :(\nPor gentileza, escolha um outro nome de usuário.`)
+      return
+  } else {
+    const promiseWelcome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", user)
+    promiseWelcome.then(welcomeSuccess);
+    promiseWelcome.catch(welcomeError);
+  }
 }
 
   function welcomeSuccess(){
-    if ((user.name).toUpperCase() === "TODOS"){
-      alert(
-        `Tá de sacanagem, né? Você não pode escolher o nome "TODOS". :(\nPor gentileza, escolha um outro nome de usuário.`)
-        welcome()
-    } else {
-      setTimeout(appearLoading, 500);
-      setTimeout(appearWelcome, 2000);
-      setTimeout(() => document.querySelector(".welcomeMenu").classList.add("hidden"), 3500)
-      setInterval(connectionStatus, 5000);
-      searchMessages();
-      setInterval(searchMessages, 3000);
-      searchUsers();
-      setInterval(searchUsers, 10000);
-    }
+    setTimeout(appearLoading, 500);
+    setTimeout(appearWelcome, 2000);
+    setTimeout(() => document.querySelector(".welcomeMenu").classList.add("hidden"), 3500)
+    setInterval(connectionStatus, 5000);
+    searchMessages();
+    setInterval(searchMessages, 3000);
+    searchUsers();
+    setInterval(searchUsers, 10000);
+    sendWithEnter()
   }
+
 
   function welcomeError(){
     alert(
@@ -134,8 +135,7 @@ function searchUsers(){
     let todos = document.querySelector(".all").querySelector(".hidden")
     if(allUsers.length === 0){
       todos.classList.add("check")
-      switchUsers()
-    }
+     }
   }
 
 function toggleCheck(element){
@@ -179,6 +179,7 @@ function objectCreator(){
       text: document.querySelector("textarea").value,
       type: "private_message"
     }
+    return objectMessage;
   } else {
     objectMessage = {
       from: user.name,
@@ -186,30 +187,33 @@ function objectCreator(){
       text: document.querySelector("textarea").value,
       type: "message"
     }
+    return objectMessage;
   }
 }
 
 function sendMessages(){
-  objectCreator()
-  const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage)
+  searchUsers()
+  const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectCreator())
   promise.then(searchMessages)
   promise.catch(error => {
-    alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
-    window.location.reload()
+    const statusCode = error.response.status;
+    if (statusCode === 400){
+      alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
+      window.location.reload()
+    }
   })
   document.querySelector("textarea").value = null;
-  switchUsers()
 }
 
-/*function sendWithEnter(){
+function sendWithEnter(){
   let input = document.querySelector(".interna > textarea");
-  input.EventListener('keypress', function(e){
+  input.addEventListener('keypress', function(e){
     if (13 === e.keyCode){
       e.preventDefault();
       sendMessages();
     }
   })
-}*/
+}
 
 function appearMenu(){
   background.classList.add("transitionOpacity")
