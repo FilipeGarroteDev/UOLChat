@@ -1,9 +1,10 @@
-let container = document.querySelector(".container")
-let background = document.querySelector(".background")
-let sideMenu = document.querySelector(".menu")
+const container = document.querySelector(".container");
+const background = document.querySelector(".background");
+const sideMenu = document.querySelector(".menu");
+let messageInput = document.querySelector("textarea").value;
 let user = {};
 let messages;
-let objectMessage;
+let objectMessage = {};
 let toUserName = "Todos";
 let visibility;
 let activeUsers;
@@ -91,6 +92,7 @@ function searchMessages(){
       }
     }
     document.querySelector(".container > div:last-child").scrollIntoView();
+    checkTodos()
   }
 
 function searchUsers(){
@@ -135,6 +137,7 @@ function searchUsers(){
     let todos = document.querySelector(".all").querySelector(".hidden")
     if(allUsers.length === 0){
       todos.classList.add("check")
+      toUserName = null
      }
   }
 
@@ -171,6 +174,7 @@ function switchUsers(){
   }
 }
 
+
 function objectCreator(){
   if (visibility === "Reservadamente"){
     objectMessage = {
@@ -192,18 +196,21 @@ function objectCreator(){
 }
 
 function sendMessages(){
-  searchUsers()
-  const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectCreator())
-  promise.then(searchMessages)
-  promise.catch(error => {
-    const statusCode = error.response.status;
-    if (statusCode === 400){
-      alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
-      window.location.reload()
-    }
-  })
-  document.querySelector("textarea").value = null;
-}
+  let message = document.querySelector("textarea").value;
+  if (message !== ""){
+    searchUsers()
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectCreator())
+    promise.then(searchMessages)
+    promise.catch(error => {
+      const statusCode = error.response.status;
+      if (statusCode === 400){
+        alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
+        window.location.reload()
+      }
+    })
+    document.querySelector("textarea").value = null;
+  }
+ }
 
 function sendWithEnter(){
   let input = document.querySelector(".interna > textarea");
