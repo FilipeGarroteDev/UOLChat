@@ -1,13 +1,22 @@
 const container = document.querySelector(".container");
 const background = document.querySelector(".background");
 const sideMenu = document.querySelector(".menu");
-let messageInput = document.querySelector("textarea").value;
 let user = {};
 let messages;
 let objectMessage = {};
 let toUserName = "Todos";
 let visibility;
 let activeUsers;
+
+function sendWithEnter(){
+  let input = document.querySelector(".interna > textarea");
+  input.addEventListener('keypress', function(e){
+    if (13 === e.keyCode){
+      e.preventDefault();
+      sendMessages();
+    }
+  })
+}
 
 function welcome(){
   user.name = document.querySelector(".welcome1 > input").value;
@@ -204,23 +213,13 @@ function sendMessages(){
     promise.catch(error => {
       const statusCode = error.response.status;
       if (statusCode === 400){
-        alert("Ocorreu um erro inesperado. Você tentou enviar uma mensagem vazia ou o destinatário não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
+        alert("Ocorreu um erro inesperado. Provavelmente, você tentou enviar uma mensagem para um usuário que não se encontra mais na sala. :(\nA página será recarregada. Por favor, faça o login novamente.")
         window.location.reload()
       }
     })
     document.querySelector("textarea").value = null;
   }
  }
-
-function sendWithEnter(){
-  let input = document.querySelector(".interna > textarea");
-  input.addEventListener('keypress', function(e){
-    if (13 === e.keyCode){
-      e.preventDefault();
-      sendMessages();
-    }
-  })
-}
 
 function appearMenu(){
   background.classList.add("transitionOpacity")

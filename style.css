@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500&display=swap');@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;0,900;1,500&display=swap');
 
 
-@media (max-width: 400px){
+@media (max-width: 614px){
 
   *{
     box-sizing: border-box;
@@ -12,6 +12,15 @@
     height: 100%;
     background-color: #E5E5E5;
     font-family: 'Roboto', sans-serif;
+  }
+
+  ion-icon:hover, button:hover, .users span:hover, .all span:hover, .visibility span:hover{
+    cursor: pointer;
+    color: rgb(71, 70, 70);
+  }
+
+  .all:hover, .users:hover, .visibility:hover{
+    color: rgb(71, 70, 70);
   }
 
   .welcomeMenu{
@@ -50,7 +59,9 @@
     text-align: center;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
-    margin-bottom: 7px;
+    margin-top: 37px;
+    margin-bottom: 20px;
+    border-radius: 9px;
   }
 
   .welcome1 > button{
@@ -61,8 +72,9 @@
     font-size: 18px;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
-    margin-top: 7px;
+    margin-top: 20px;
     color: #696969;
+    box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.5);
   }
 
   .welcomeMenu > .gif{
@@ -116,7 +128,7 @@
   .container{
     width: 100%;
     height: 100%;
-    margin: 100px 0;
+    margin: 90px 0;
   }
 
   .interna {
@@ -299,9 +311,18 @@
 
 }
 
-@media (min-width: 401px){
+@media (min-width: 615px){
   .welcomeMenu, header, .container, footer, .menuOverlay{
     display: none;
+  }
+
+  *{
+    box-sizing: border-box;
+  }
+
+  body{
+    width: 100vw;
+    height: 100vh;
   }
 
   .desktop{
@@ -316,8 +337,9 @@
   }
 
   img {
-    width: 50%;
+    width: 300px;
     height: auto;
+    margin-bottom: 50px;
   }
 
   h1{
